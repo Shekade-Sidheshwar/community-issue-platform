@@ -4,7 +4,7 @@ from services.user_auth_service import signup_user, login_user
 user_auth_bp = Blueprint("user_auth", __name__)
 
 
-@user_auth_bp.route("/api/users/signup", methods=["POST"])
+@user_auth_bp.route("/signup", methods=["POST"])
 def signup():
     data = request.get_json()
 
@@ -23,7 +23,7 @@ def signup():
     return jsonify(result), 201
 
 
-@user_auth_bp.route("/api/users/login", methods=["POST"])
+@user_auth_bp.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
 

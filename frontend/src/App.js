@@ -61,8 +61,9 @@ function App() {
         />
 
         {/* User Routes */}
-        <Route path="/user/login" element={<Login />} />
-        <Route path="/user/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+
         <Route path="/user/create-issue" element={<CreateIssue />} />
         <Route path="/user/my-issues" element={<MyIssues />} />
 

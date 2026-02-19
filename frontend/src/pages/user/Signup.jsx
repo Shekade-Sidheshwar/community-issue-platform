@@ -1,3 +1,5 @@
+import { signupUser } from "../../services/user_service";
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Signup_Login.css';
@@ -28,37 +30,24 @@ const Signup = () => {
         setSuccess('');
 
         try {
-            const response = await fetch('http://localhost:5000/api/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            });
+    await signupUser(formData);
 
-            const data = await response.json();
+    setSuccess("Account created successfully!");
 
-            if (!response.ok) {
-                throw new Error(data.message || 'Signup failed');
-            }
+    setFormData({
+        name: "",
+        email: "",
+        password: ""
+    });
 
-            setSuccess('Account created successfully!');
-            
-            setFormData({
-                name: '',
-                email: '',
-                password: ''
-            });
+    setTimeout(() => {
+        navigate("/login");
+    }, 2000);
 
-            setTimeout(() => {
-                navigate('/login');
-            }, 2000);
+} catch (err) {
+    setError(err.response?.data?.message || "Signup failed");
+}
 
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            setLoading(false);
-        }
     };
 
     return (

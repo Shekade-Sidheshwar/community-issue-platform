@@ -1,3 +1,5 @@
+import { loginUser } from "../../services/user_service";
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Signup_Login.css';
@@ -24,34 +26,21 @@ const Login = () => {
         setLoading(true);
         setError('');
 
-        try {
-            const response = await fetch('http://localhost:5000/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            });
+       try {
+    const data = await loginUser(formData);
 
-            const data = await response.json();
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
 
-            if (!response.ok) {
-                throw new Error(data.message || 'Invalid email or password');
-            }
+    navigate("/dashboard");
 
-            // Store token and user data
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('user', JSON.stringify(data.user));
-            
-            // Redirect to dashboard or home
-            navigate('/dashboard');
-
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            setLoading(false);
-        }
-    };
+} catch (err) {
+    setError(err.response?.data?.message || "Login failed");
+}
+finally {
+        setLoading(false);
+    }
+}; 
 
     return (
         <div className="auth-container">
@@ -110,7 +99,7 @@ const Login = () => {
                     
                     <div className="auth-links">
                         <Link to="/signup">
-                            Don't have an account? Sign up
+                              Don't have an account? Sign up
                         </Link>
                     </div>
                 </form>
