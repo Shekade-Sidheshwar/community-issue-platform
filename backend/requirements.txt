@@ -1,7 +1,9 @@
-Flask
-Flask-SQLAlchemy
-Flask-Migrate
-PyJWT
-Werkzeug
-Flask-Cors
-python-dotenv
+Flask==3.2.2
+Flask-SQLAlchemy==3.0.5
+Flask-Migrate==4.0.4
+Flask-JWT-Extended==4.4.4
+Flask-Cors==3.0.12
+PyJWT==2.8.0
+python-dotenv==1.0.0
+PyMySQL==1.1.1
+Werkzeug==2.3.6
